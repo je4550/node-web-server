@@ -31,13 +31,8 @@ app.use((req, res, next) => {
 
 app.use(express.static(__dirname + '/public'))
 
-hbs.registerHelper('getCurrentYear', () => {
-    return new Date().getFullYear();
-})
-
-hbs.registerHelper('screamIt', (text) => {
-    return text.toUpperCase();
-})
+hbs.registerHelper('getCurrentYear', () => new Date().getFullYear())
+hbs.registerHelper('screamIt', (text) => text.toUpperCase())
 
 app.get('/', (req, res) => {
     res.render('home.hbs', {
@@ -58,6 +53,4 @@ app.get('/bad', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log("Listening on port 3000")
-});
+app.listen(process.env.port || process.env.PORT || 3000, () => console.log("Server up"))
